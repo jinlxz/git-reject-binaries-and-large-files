@@ -2,12 +2,12 @@
 set -o pipefail
 binaries=0
 status=0
-if [ $(git diff --cached --numstat -M100% | grep -ce "-\s-\s\w") -gt 0 ];then
+if [ $(git diff --cached --numstat -M100% | grep -ce "-	-	\w") -gt 0 ];then
   binaries=1
 fi
 if [ "$binaries" -gt "0" ]; then
         for file in $(git diff --cached --name-only); do
-                if [ $(git diff --cached --numstat -M100% -- "$file" | grep -ce "-\s-\s\w") -gt 0 ];then
+                if [ $(git diff --cached --numstat -M100% -- "$file" | grep -ce "-	-	\w") -gt 0 ];then
                         status=1
                         1>&2 echo "Your commit was rejected because it contains binary files: $file"
                 fi
